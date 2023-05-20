@@ -2,9 +2,14 @@ package com.example.evaluacion2.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
+
+import com.example.evaluacion2.ProductoEntidad.Producto;
+
+import java.util.ArrayList;
 
 public class DbProductos extends DbHelper{
 
@@ -40,4 +45,35 @@ public class DbProductos extends DbHelper{
 
 
     }
+
+    public ArrayList<Producto> mostar(){
+        DbHelper dbHelper=new DbHelper(context);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        ArrayList<Producto> listaproductos = new ArrayList<>();
+
+        Cursor cursorproducto = null;
+
+        cursorproducto = db.rawQuery("SELECT * FROM " + TABLE_PRODUCTOS, null );
+
+        if(cursorproducto.moveToFirst()){
+            do {
+                Producto producto = new Producto();
+
+                producto.setId(cursorproducto.getInt(0));
+                producto.setNombre(cursorproducto.getString(1));
+                producto.setFecha_v(cursorproducto.getString(3));
+                producto.setCantidad(cursorproducto.getString(6));
+                producto.setPrecio(cursorproducto.getString(7));
+                listaproductos.add(producto);
+            }while (cursorproducto.moveToNext());
+
+
+        }
+
+        cursorproducto.close();
+
+        return listaproductos;
+    }
+
+
 }
