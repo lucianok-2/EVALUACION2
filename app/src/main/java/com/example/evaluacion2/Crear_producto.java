@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.evaluacion2.db.DbProductos;
 
@@ -32,10 +33,28 @@ public class Crear_producto extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DbProductos dbProductos = new DbProductos(Crear_producto.this);
-                dbProductos.CrearProducto(txtNombre.getText().toString(), txtFechaC.getText().toString(), txtFechaC.getText().toString(),txtLugar.getText().toString(),txtmarca.getText().toString(),txtprecio.getText().);
+                long id = dbProductos.CrearProducto(txtNombre.getText().toString(), txtFechaC.getText().toString(), txtFechaC.getText().toString(),txtLugar.getText().toString(),txtmarca.getText().toString(),txtprecio.getText().toString(),txtcantidad.getText().toString());
+                if (id>0){
+                    Toast.makeText(Crear_producto.this,"PRODUCTO CREADO CON EXITO",Toast.LENGTH_LONG).show();
+                    limpiar();
 
+                }else{
+                    Toast.makeText(Crear_producto.this,"ERROR AL CREAR",Toast.LENGTH_LONG).show();
+
+                }
             }
         });
+
+
+    }
+    private void limpiar(){
+        txtNombre.setText("");
+        txtFechaC.setText("");
+        txtFechaV.setText("");
+        txtLugar.setText("");
+        txtmarca.setText("");
+        txtprecio.setText("");
+        txtcantidad.setText("");
 
 
     }

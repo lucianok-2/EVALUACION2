@@ -13,7 +13,7 @@ public class DbProductos extends DbHelper{
         super(context);
         this.context = context;
     }
-    public long CrearProducto(String nombre , String fecha_compra, String fecha_vencimiento,String Lugar,String marca,Double precio, int cantidad ){
+    public long CrearProducto(String nombre , String fecha_compra, String fecha_vencimiento,String Lugar,String marca,String precio, String cantidad ){
         long id = 0;
         try {
             DbHelper dbHelper = new DbHelper(context);

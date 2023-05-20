@@ -24,8 +24,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 "fecha_vencimiento TEXT," +
                 "lugar TEXT," +
                 "marca TEXT," +
-                "precio REAL NOT NULL," +
-                "cantidad INTEGER NOT NULL" +
+                "precio TEXT NOT NULL," +
+                "cantidad TEXT NOT NULL" +
                 ")");
     }
 
