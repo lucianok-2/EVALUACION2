@@ -129,6 +129,30 @@ public class DbProductos extends DbHelper{
 
         return correcto;
     }
+    public boolean Eliminar(int id) {
+        boolean correcto = false;
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        try {
+            Cursor cursor = db.rawQuery("SELECT id FROM " + TABLE_PRODUCTOS + " WHERE id = " + id + " LIMIT 1", null);
+
+            if (cursor.moveToFirst()) {
+                int idToDelete = cursor.getInt(0);
+                db.delete(TABLE_PRODUCTOS, "id = ?", new String[] { String.valueOf(idToDelete) });
+                correcto = true;
+            }
+
+            cursor.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            correcto = false;
+        } finally {
+            db.close();
+        }
+
+        return correcto;
+    }
 
 
 

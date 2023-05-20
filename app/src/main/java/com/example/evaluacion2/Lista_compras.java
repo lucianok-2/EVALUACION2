@@ -35,7 +35,7 @@ public class Lista_compras extends AppCompatActivity implements View.OnClickList
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Añadir=(Button)findViewById(R.id.btn_añadir);
-        Eliminar=(Button)findViewById(R.id.btn_eliminar);
+
         Añadir.setOnClickListener(this);
 
         listaproductos = findViewById(R.id.recycle_Mostrar);
@@ -62,9 +62,7 @@ public class Lista_compras extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
 
-            case R.id.btn_eliminar:
-                // Código para eliminar productos
-                break;
+
         }
     }
     @Override
