@@ -122,7 +122,7 @@ public class modificar extends AppCompatActivity {
 
     }
     private void lista(){
-        Intent intentar =new Intent(this,Lista_compras.class);
+        Intent intentar =new Intent(this, Lista_Productos.class);
         startActivity(intentar);
 
     }

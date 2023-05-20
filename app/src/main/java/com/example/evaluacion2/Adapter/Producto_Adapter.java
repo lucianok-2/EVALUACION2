@@ -10,19 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.evaluacion2.Lista_compras;
 import com.example.evaluacion2.ProductoEntidad.Producto;
 import com.example.evaluacion2.R;
 import com.example.evaluacion2.modificar;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class Producto_Adapter extends RecyclerView.Adapter<Producto_Adapter.ProductoViewHolder> {
 
     ArrayList<Producto> listaProductos;
+    ArrayList<Producto> listaOriginal;
 
     public Producto_Adapter(ArrayList<Producto> listaProductos){
         this.listaProductos=listaProductos;
+        this.listaOriginal= new ArrayList<>();
+        listaOriginal.addAll(listaProductos);
 
 
 
@@ -44,6 +49,25 @@ public class Producto_Adapter extends RecyclerView.Adapter<Producto_Adapter.Prod
         holder.vFecha_v.setText(listaProductos.get(position).getFecha_v());
         holder.vprecio.setText(listaProductos.get(position).getPrecio());
         holder.vcantidad.setText(listaProductos.get(position).getCantidad());
+
+
+    }
+
+    public void filtro_busqueda(String sv_Buscar){
+        int longitud = sv_Buscar.length();
+        if(longitud == 0){
+            listaProductos.clear();
+            listaProductos.addAll(listaOriginal);
+
+        }else{
+            List<Producto> collecion = listaProductos.stream().filter(i -> i.getNombre().toLowerCase().contains(sv_Buscar.toLowerCase()))
+                    .collect(Collectors.toList());
+            listaProductos.clear();
+            listaProductos.addAll(collecion);
+
+        }
+        notifyDataSetChanged();
+
 
 
     }

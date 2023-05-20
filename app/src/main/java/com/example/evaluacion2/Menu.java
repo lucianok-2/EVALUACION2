@@ -55,7 +55,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             case R.id.boton_inicio3:
                 DbHelper dbHelper = new DbHelper(Menu.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                Intent i = new Intent(Menu.this,Lista_compras.class);
+                Intent i = new Intent(Menu.this, Lista_Productos.class);
                 startActivity(i);
                 break;
             case R.id.boton_inicio5:

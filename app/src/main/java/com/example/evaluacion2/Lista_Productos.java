@@ -3,6 +3,7 @@ package com.example.evaluacion2;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,33 +21,38 @@ import com.example.evaluacion2.db.DbProductos;
 
 import java.util.ArrayList;
 
-public class Lista_compras extends AppCompatActivity implements View.OnClickListener{
+public class Lista_Productos extends AppCompatActivity implements View.OnClickListener,SearchView.OnQueryTextListener {
     private Button Añadir,Eliminar;
-    private Producto_Adapter adapter;
+     Producto_Adapter adapter;
     EditText buscar;
     RecyclerView listaproductos;
     ArrayList<Producto> ArrayProducto;
+    SearchView busqueda;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_compras);
+        setContentView(R.layout.activity_lista_productos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Añadir=(Button)findViewById(R.id.btn_añadir);
-
         Añadir.setOnClickListener(this);
+
+        busqueda=findViewById(R.id.sv_buscar);
+
 
         listaproductos = findViewById(R.id.recycle_Mostrar);
         listaproductos.setLayoutManager(new LinearLayoutManager(this));
 
-        DbProductos dbProductos = new DbProductos(Lista_compras.this);
+        DbProductos dbProductos = new DbProductos(Lista_Productos.this);
 
         ArrayProducto = new ArrayList<>();
 
-        Producto_Adapter adapter = new Producto_Adapter(dbProductos.mostar());
+        adapter = new Producto_Adapter(dbProductos.mostar());
         listaproductos.setAdapter(adapter);
+
+        busqueda.setOnQueryTextListener(this);
 
 
 
@@ -54,9 +60,7 @@ public class Lista_compras extends AppCompatActivity implements View.OnClickList
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_buscar:
-                // Código para buscar productos
-                break;
+
             case R.id.btn_añadir:
                 Intent intent = new Intent(this, Crear_producto.class);
                 startActivity(intent);
@@ -78,7 +82,7 @@ public class Lista_compras extends AppCompatActivity implements View.OnClickList
     public void onResume() {
         super.onResume();
         // Actualizar el adaptador cada vez que la actividad vuelve a estar en primer plano
-        DbProductos dbProductos = new DbProductos(Lista_compras.this);
+        DbProductos dbProductos = new DbProductos(Lista_Productos.this);
         adapter = new Producto_Adapter(dbProductos.mostar());
         listaproductos.setAdapter(adapter);
     }
@@ -88,11 +92,22 @@ public class Lista_compras extends AppCompatActivity implements View.OnClickList
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
             // Actualizar el adaptador para mostrar el nuevo producto
-            DbProductos dbProductos = new DbProductos(Lista_compras.this);
+            DbProductos dbProductos = new DbProductos(Lista_Productos.this);
             Producto_Adapter adapter = new Producto_Adapter(dbProductos.mostar());
             listaproductos.setAdapter(adapter);
         }
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        adapter.filtro_busqueda(s);
+        return false;
+    }
 }

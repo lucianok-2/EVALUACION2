@@ -30,7 +30,7 @@
             android:name=".Lugares"
             android:exported="false" />
         <activity
-            android:name=".Lista_compras"
+            android:name=".Lista_Productos"
             android:exported="false" />
         <activity
             android:name=".Inicio"
