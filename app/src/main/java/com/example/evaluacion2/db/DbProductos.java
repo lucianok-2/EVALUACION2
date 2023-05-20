@@ -52,12 +52,13 @@ public class DbProductos extends DbHelper{
         ArrayList<Producto> listaproductos = new ArrayList<>();
 
         Cursor cursorproducto = null;
+        Producto producto=null;
 
         cursorproducto = db.rawQuery("SELECT * FROM " + TABLE_PRODUCTOS, null );
 
         if(cursorproducto.moveToFirst()){
             do {
-                Producto producto = new Producto();
+                 producto = new Producto();
 
                 producto.setId(cursorproducto.getInt(0));
                 producto.setNombre(cursorproducto.getString(1));

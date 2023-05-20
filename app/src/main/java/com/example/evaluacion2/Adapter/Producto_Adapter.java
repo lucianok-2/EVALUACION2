@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.evaluacion2.Lista_compras;
 import com.example.evaluacion2.ProductoEntidad.Producto;
 import com.example.evaluacion2.R;
+import com.example.evaluacion2.modificar;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,9 @@ public class Producto_Adapter extends RecyclerView.Adapter<Producto_Adapter.Prod
                 @Override
                 public void onClick(View view) {
                     Context context = view.getContext();
-
+                    Intent intent = new Intent(context, modificar.class);
+                    intent.putExtra("ID",listaProductos.get(getAdapterPosition()).getId());
+                    context.startActivity(intent);
 
                 }
             });

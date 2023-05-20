@@ -1,8 +1,11 @@
 package com.example.evaluacion2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +21,7 @@ public class Crear_producto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_producto);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtNombre = findViewById(R.id.txt_nombre);
         txtFechaC = findViewById(R.id.txt_fecha_c);
@@ -37,6 +41,10 @@ public class Crear_producto extends AppCompatActivity {
                 if (id>0){
                     Toast.makeText(Crear_producto.this,"PRODUCTO CREADO CON EXITO",Toast.LENGTH_LONG).show();
                     limpiar();
+                    Intent intent = new Intent();
+                    intent.putExtra("producto_creado", id);
+                    setResult(RESULT_OK, intent);
+                    finish();
 
                 }else{
                     Toast.makeText(Crear_producto.this,"ERROR AL CREAR",Toast.LENGTH_LONG).show();
@@ -57,5 +65,14 @@ public class Crear_producto extends AppCompatActivity {
         txtcantidad.setText("");
 
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
