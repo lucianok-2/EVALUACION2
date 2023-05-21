@@ -15,6 +15,8 @@ import com.example.evaluacion2.R;
 import com.example.evaluacion2.modificar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -101,5 +103,48 @@ public class Producto_Adapter extends RecyclerView.Adapter<Producto_Adapter.Prod
             });
 
         }
+    }
+    public void ordenarProductos(int atributo) {
+        switch (atributo) {
+            case 0:
+                // Ordenar por nombre
+                Collections.sort(listaProductos, new Comparator<Producto>() {
+                    @Override
+                    public int compare(Producto p1, Producto p2) {
+                        return p1.getNombre().compareTo(p2.getNombre());
+                    }
+                });
+                break;
+            case 1:
+                // Ordenar por fecha de vencimiento
+                Collections.sort(listaProductos, new Comparator<Producto>() {
+                    @Override
+                    public int compare(Producto p1, Producto p2) {
+                        return p1.getFecha_v().compareTo(p2.getFecha_v());
+                    }
+                });
+                break;
+            case 2:
+                // Ordenar por precio
+                Collections.sort(listaProductos, new Comparator<Producto>() {
+                    @Override
+                    public int compare(Producto p1, Producto p2) {
+                        return Double.compare(Double.parseDouble(p1.getPrecio()), Double.parseDouble(p2.getPrecio()));
+                    }
+                });
+                break;
+            case 3:
+                // Ordenar por cantidad
+                Collections.sort(listaProductos, new Comparator<Producto>() {
+                    @Override
+                    public int compare(Producto p1, Producto p2) {
+                        return Integer.compare(Integer.parseInt(p1.getCantidad()), Integer.parseInt(p2.getCantidad()));
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+        notifyDataSetChanged();
     }
 }

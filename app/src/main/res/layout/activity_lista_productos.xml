@@ -19,24 +19,38 @@
     <Button
         android:id="@+id/btn_añadir"
         android:layout_width="79dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="CREAR"
         android:textSize="8sp"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/sv_buscar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/sv_buscar" />
+
+    <Spinner
+        android:id="@+id/spinner_ordenar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/recycle_Mostrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_añadir" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_Mostrar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_añadir" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_ordenar"
+        app:layout_constraintVertical_bias="1.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

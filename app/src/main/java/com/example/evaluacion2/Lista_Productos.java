@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.evaluacion2.Adapter.Producto_Adapter;
 import com.example.evaluacion2.ProductoEntidad.Producto;
@@ -21,8 +23,9 @@ import com.example.evaluacion2.db.DbProductos;
 
 import java.util.ArrayList;
 
-public class Lista_Productos extends AppCompatActivity implements View.OnClickListener,SearchView.OnQueryTextListener {
+public class Lista_Productos extends AppCompatActivity implements View.OnClickListener,SearchView.OnQueryTextListener{
     private Button Añadir,Eliminar;
+    Spinner spinnerOrdenar ;
      Producto_Adapter adapter;
     EditText buscar;
     RecyclerView listaproductos;
@@ -35,6 +38,9 @@ public class Lista_Productos extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_productos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        spinnerOrdenar = findViewById(R.id.spinner_ordenar);
 
         Añadir=(Button)findViewById(R.id.btn_añadir);
         Añadir.setOnClickListener(this);
@@ -53,6 +59,32 @@ public class Lista_Productos extends AppCompatActivity implements View.OnClickLi
         listaproductos.setAdapter(adapter);
 
         busqueda.setOnQueryTextListener(this);
+
+
+        spinnerOrdenar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        adapter.ordenarProductos(0); // Ordenar por nombre
+                        break;
+                    case 1:
+                        adapter.ordenarProductos(1); // Ordenar por fecha de vencimiento
+                        break;
+                    case 2:
+                        adapter.ordenarProductos(2); // Ordenar por precio
+                        break;
+                    case 3:
+                        adapter.ordenarProductos(3); // Ordenar por cantidad
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No se hace nada aquí
+            }
+        });
 
 
 
@@ -110,4 +142,5 @@ public class Lista_Productos extends AppCompatActivity implements View.OnClickLi
         adapter.filtro_busqueda(s);
         return false;
     }
+
 }
